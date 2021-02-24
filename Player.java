@@ -6,7 +6,7 @@ public class Player {
     public Player()
     {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter your name:")
+        System.out.println("Please enter your name:");
         name = sc.nextLine();
     }
     public String getName()

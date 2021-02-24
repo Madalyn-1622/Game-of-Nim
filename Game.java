@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Game {
     private Player player1;
     private Player player2;
-    private boolean playAgain = false;
+    private boolean playAgain = true;
     public Game()
     {
         player1 = new Player();
@@ -26,16 +26,17 @@ public class Game {
                 starterPlayer = player2;
             }
             //loops until game ends
+            System.out.println(starterPlayer.getName() + " you are first");
             while (Board.getNumPieces() > 1)
             {
                 System.out.println("There are " + Board.getNumPieces() + " pieces.");
-                System.out.println(starterPlayer.getName() + " you are first");
-                System.out.println(" How many pieces you you like to remove?");
+                
+                System.out.println(starterPlayer.getName() + " How many pieces you you like to remove?");
                 int num = sc.nextInt();
                 //check valid response
                 while(num < 1 || num > Board.getNumPieces()/2)
                 {
-                    System.out.println(" How many pieces you you like to remove?");
+                    System.out.println(starterPlayer.getName() + " How many pieces you you like to remove?");
                     num = sc.nextInt();
                 }
                 //removes pieces
@@ -51,19 +52,32 @@ public class Game {
                     currPlayer = 1;
                     starterPlayer = player1;
                 }
-            }//game has ended
-            playAgain = false; 
-            int winnerPoints = 0;
-            winnerPoints++;
-            System.out.println(starterPlayer + " is the winner!");
-            System.out.println("You have" + winnerPoints);
-            System.out.println("Would you like to play again?");
-            String play = sc.nextLine();
-            if (play.equals("yes"))
+              
+            }//round has ended
+            if(currPlayer == 1)
             {
-                playAgain = true;
+                System.out.println(player2.getName() + " wins!");
+                player2.incrScore();
             }
-            //if they ask to play again repopulate the board
+            else
+            {
+                System.out.println(player1.getName() + " wins!");
+                player1.incrScore();
+            }
+            System.out.println(player1.getName() + "'s score is:" + player1.getScore());
+            System.out.println(player2.getName() + "'s score is:" + player2.getScore());
+
+            System.out.println("Would you like to play again? 1(yes) 2(no)");
+            int answer = sc.nextInt();
+            if (answer == 1)
+            {
+                Board.populate();   
+            }
+                 else if(answer == 2)
+            {
+                System.out.println("Thanks for playing!");
+                playAgain = false;
+            }
         }  
     }
 }
